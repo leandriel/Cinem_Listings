@@ -1,15 +1,22 @@
 package com.leandroid.apps.cinemalistings.model
 
-import com.google.gson.annotations.SerializedName
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "movies")
 data class Movie(
-    @SerializedName("id") val id: String,
-    @SerializedName("title") val title: String,
-    @SerializedName("fullTitle") val fullTitle: String,
-    @SerializedName("year") val year: Int,
-    @SerializedName("releaseState") val releaseState: String,
-    @SerializedName("poster_path") val images: String,
+    @PrimaryKey
+    val id: String,
+    val title: String,
+    val fullTitle: String,
+    val year: Int,
+    val releaseState: String,
+    val image: String,
+    val imDbRating: String,
+    val genres: String,
+    val plot: String,
+
 ){
     var urlImage : String = ""
-        get() = "https://m.media-amazon.com/images/M/${images}"
+        get() = "https://m.media-amazon.com/images/M/${image}"
 }
