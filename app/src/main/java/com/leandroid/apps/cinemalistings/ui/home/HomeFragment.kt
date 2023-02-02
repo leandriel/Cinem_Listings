@@ -1,18 +1,21 @@
 package com.leandroid.apps.cinemalistings.ui.home
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leandroid.apps.cinemalistings.R
 import com.leandroid.apps.cinemalistings.data.api.APIManager
 import com.leandroid.apps.cinemalistings.data.repository.MovieRepository
 import com.leandroid.apps.cinemalistings.databinding.FragmentHomeBinding
-import com.leandroid.apps.cinemalistings.model.MovieDao
 import com.leandroid.apps.cinemalistings.model.MovieDataBase
 import com.leandroid.apps.cinemalistings.ui.MovieListener
 import com.leandroid.apps.cinemalistings.ui.details.DetailsMovieActivity
@@ -24,12 +27,27 @@ class HomeFragment : Fragment(), MovieListener {
     private lateinit var  repository: MovieRepository
     private lateinit var viewModel: HomeViewModel
 
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private var isWritePermissionGranted = false
+    private var isLocationPermissionGranted = false
+    private var isCameraPermissionGranted = false
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initRecyclerView()
         subscribeLiveData()
+
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){permissions ->
+            isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
+            isCameraPermissionGranted = permissions[android.Manifest.permission.CAMERA] ?: isCameraPermissionGranted
+            isLocationPermissionGranted = permissions[android.Manifest.permission.ACCESS_FINE_LOCATION] ?: isLocationPermissionGranted
+        }
+
+        requestPermission()
+
+
     }
 
     override fun onCreateView(
@@ -92,5 +110,45 @@ class HomeFragment : Fragment(), MovieListener {
         val intent = Intent(requireContext(), DetailsMovieActivity::class.java)
         intent.putExtra(DetailsMovieActivity.ID_MOVIE, id)
         startActivity(intent)
+    }
+
+
+    private fun requestPermission()
+    {
+        isWritePermissionGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+        )== PackageManager.PERMISSION_GRANTED
+
+        isCameraPermissionGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.CAMERA
+
+        )== PackageManager.PERMISSION_GRANTED
+
+        isLocationPermissionGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+
+        )== PackageManager.PERMISSION_GRANTED
+
+        val permissionRequest: MutableList<String> = ArrayList()
+
+        if(!isWritePermissionGranted){
+            permissionRequest.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+
+        if(!isCameraPermissionGranted){
+            permissionRequest.add(android.Manifest.permission.CAMERA)
+        }
+
+        if(!isLocationPermissionGranted){
+            permissionRequest.add(android.Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+
+        if(permissionRequest.isNotEmpty()){
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
     }
 }
