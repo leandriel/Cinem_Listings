@@ -11,13 +11,13 @@ data class Movie(
     var title: String,
     var fullTitle: String,
     var year: Int,
-    var releaseState: Date?,
+    var releaseState: String,
     var image: String,
     var imDbRating: String,
     var genres: String,
     var plot: String,
 
 ){
-    constructor() : this("", "", "", -1, null, "", "", "","")
+    constructor() : this("", "", "", -1, "", "", "", "","")
 }
 

@@ -9,7 +9,7 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(movie: List<Movie>)
 
-    @Query("SELECT * FROM movies ORDER BY releaseState DESC")
+    @Query("SELECT * FROM movies ORDER BY year DESC")
     suspend fun getAllMovies(): List<Movie>
 
     @Query("SELECT * FROM movies WHERE id = :id")
