@@ -9,7 +9,8 @@ import com.leandroid.apps.cinemalistings.model.Movie
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val repository: MovieRepository) : ViewModel(){
+    private val repository: MovieRepository
+) : ViewModel() {
     val movies: LiveData<MutableList<Movie>>
         get() = _movies
     private val _movies = MutableLiveData<MutableList<Movie>>()
@@ -20,20 +21,15 @@ class HomeViewModel(
         get() = _isLoading
     private val _isLoading = MutableLiveData<Boolean>()
 
-    fun getMovies(){
+    fun getMovies() {
         viewModelScope.launch {
             _isLoading.value = true
-            repository.getMovies().let { response ->
-                if (response.isSuccessful) {
-                    _isError.value = false
-                    _movies.value = response.body()?.let {
-                        it.items
-                    } ?: mutableListOf()
-                } else {
-                    _isError.value = true
-                }
-                _isLoading.value = false
+            repository.getMovies().let { movies ->
+                _isError.value = false
+                _movies.value = movies.toMutableList()
             }
+            _isLoading.value = false
         }
     }
+
 }
