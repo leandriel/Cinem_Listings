@@ -6,13 +6,10 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.leandroid.apps.cinemalistings.R
-import com.leandroid.apps.cinemalistings.data.api.APIManager
 import com.leandroid.apps.cinemalistings.data.repository.DetailsRepository
-import com.leandroid.apps.cinemalistings.data.repository.MovieRepository
 import com.leandroid.apps.cinemalistings.databinding.ActivityDetailsMovieBinding
 import com.leandroid.apps.cinemalistings.model.MovieDataBase
 import com.leandroid.apps.cinemalistings.ui.utils.ComponentUtils.Companion.showToast
-import com.squareup.picasso.Picasso
 
 class DetailsMovieActivity : AppCompatActivity() {
 
