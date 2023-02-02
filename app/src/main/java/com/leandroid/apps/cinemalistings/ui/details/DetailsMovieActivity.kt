@@ -60,9 +60,9 @@ class DetailsMovieActivity : AppCompatActivity() {
                         .load(m.image)
                         .into(movieImage)
                     tvReleaseStateDetail.text = m.releaseState
-                    tvGenres.text = String.format(getString(R.string.genres), m.genres)
-                    tvImdbRating.text = String.format(getString(R.string.rating_imdb), m.imDbRating)
-                    tvPlot.text = String.format(getString(R.string.plot), m.plot)
+                    tvGenres.text = m.genres
+                    tvImdbRating.text = m.imDbRating
+                    tvPlot.text = m.plot
                 }
             }
         }
