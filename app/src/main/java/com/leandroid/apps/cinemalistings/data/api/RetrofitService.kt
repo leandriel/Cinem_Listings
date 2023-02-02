@@ -12,7 +12,7 @@ class RetrofitService {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-            return Retrofit.Builder()
+              return Retrofit.Builder()
                 .client(client)
                 .baseUrl("https://my.api.mockaroo.com/")
                 .addConverterFactory(GsonConverterFactory.create())

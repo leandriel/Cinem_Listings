@@ -8,7 +8,8 @@ import com.leandroid.apps.cinemalistings.data.repository.MovieRepository
 import com.leandroid.apps.cinemalistings.model.Movie
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val repository: MovieRepository) : ViewModel(){
+class HomeViewModel(
+    private val repository: MovieRepository) : ViewModel(){
     val movies: LiveData<MutableList<Movie>>
         get() = _movies
     private val _movies = MutableLiveData<MutableList<Movie>>()

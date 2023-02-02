@@ -22,8 +22,7 @@ class MovieViewHolder(view: View, private val listener: MovieListener) :
         binding.tvReleaseState.text = movie.releaseState
         binding.tvRating.text = movie.imDbRating
         Glide.with(binding.ivPortada.context)
-            .load(movie.urlImage)
+            .load(movie.image)
             .into(binding.ivPortada)
-        Picasso.get().load(movie.urlImage).into(binding.ivPortada)
     }
 }

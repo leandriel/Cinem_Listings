@@ -11,8 +11,4 @@ interface APIService {
     @GET( "movies.json")
     suspend fun getMovies(@Query("key") apiKey: String = "cb03b960"): Response<MovieDTO>
 
-    @GET("movies/{movie_id}")
-    suspend fun getMovieDetails(
-        @Path("movie_id") id: String,
-        @Query("key") apiKey: String = "cb03b960") : Response<Movie>
 }

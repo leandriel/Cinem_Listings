@@ -5,18 +5,18 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies")
 data class Movie(
-    @PrimaryKey
-    val id: String,
-    val title: String,
-    val fullTitle: String,
-    val year: Int,
-    val releaseState: String,
-    val image: String,
-    val imDbRating: String,
-    val genres: String,
-    val plot: String,
+    @PrimaryKey(autoGenerate = false)
+    var id: String,
+    var title: String,
+    var fullTitle: String,
+    var year: Int,
+    var releaseState: String,
+    var image: String,
+    var imDbRating: String,
+    var genres: String,
+    var plot: String,
 
 ){
-    var urlImage : String = ""
-        get() = "https://m.media-amazon.com/images/M/${image}"
+    constructor() : this("", "", "", -1, "", "", "", "","")
 }
+

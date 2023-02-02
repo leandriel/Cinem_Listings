@@ -23,15 +23,12 @@ class DetailsViewModel(private val detailsRepository: DetailsRepository) : ViewM
     fun getDetailsMovie(id: String) {
         viewModelScope.launch {
             _isLoading.value = true
-            detailsRepository.getMovieDetails(id).let { response ->
-                if (response.isSuccessful) {
+            detailsRepository.getMovieDetails(id).let { movie ->
+                if (movie != null ) {
                     _isError.value = false
-                    response.body()?.let {
-                        _movie.value = it
-                    } ?: run {
-                        _isError.value = true
+                    _movie.value = movie
                     }
-                } else {
+                 else {
                     _isError.value = true
                 }
                 _isLoading.value = false

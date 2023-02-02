@@ -9,7 +9,7 @@ interface MovieDao {
     suspend fun insertMovies(movie: List<Movie>)
 
     @Query("SELECT * FROM movies")
-    suspend fun gelAllMovies(): Flow<List<Movie>>
+    suspend fun getAllMovies(): List<Movie>
 
     @Query("SELECT * FROM movies WHERE id = :id")
     suspend fun getById(id: String): Movie

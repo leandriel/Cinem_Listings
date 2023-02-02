@@ -12,6 +12,8 @@ import com.leandroid.apps.cinemalistings.R
 import com.leandroid.apps.cinemalistings.data.api.APIManager
 import com.leandroid.apps.cinemalistings.data.repository.MovieRepository
 import com.leandroid.apps.cinemalistings.databinding.FragmentHomeBinding
+import com.leandroid.apps.cinemalistings.model.MovieDao
+import com.leandroid.apps.cinemalistings.model.MovieDataBase
 import com.leandroid.apps.cinemalistings.ui.MovieListener
 import com.leandroid.apps.cinemalistings.ui.details.DetailsMovieActivity
 import com.leandroid.apps.cinemalistings.ui.utils.ComponentUtils.Companion.showToast
@@ -19,7 +21,7 @@ import com.leandroid.apps.cinemalistings.ui.utils.ComponentUtils.Companion.showT
 class HomeFragment : Fragment(), MovieListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapterPopular: HomeAdapter
-    private val repository = MovieRepository(APIManager())
+    private lateinit var  repository: MovieRepository
     private lateinit var viewModel: HomeViewModel
 
 
@@ -39,8 +41,12 @@ class HomeFragment : Fragment(), MovieListener {
     }
 
     private fun initViewModel() {
-        HomeViewModelFactory(repository).run {
-            viewModel = ViewModelProvider(this@HomeFragment, this)[HomeViewModel::class.java]
+        context?.let {
+            repository = MovieRepository(APIManager(), MovieDataBase.getDataBase(it).movieDao())
+
+            HomeViewModelFactory(repository).run {
+                viewModel = ViewModelProvider(requireActivity(), this)[HomeViewModel::class.java]
+            }
         }
     }
 
