@@ -17,12 +17,16 @@ class MovieViewHolder(view: View, private val listener: MovieListener) :
         binding.root.setOnClickListener {
             listener.onClick(movie.id)
         }
+        with(binding){
+            tvTitle.text = movie.title
+            tvReleaseState.text = movie.releaseState
+            tvRating.text = movie.imDbRating
+            tvGenres.text = movie.genres
+            Glide.with(binding.ivPortada.context)
+                .load(movie.image)
+                .into(binding.ivPortada)
+        }
 
-        binding.tvTitle.text = movie.title
-        binding.tvReleaseState.text = movie.releaseState
-        binding.tvRating.text = movie.imDbRating
-        Glide.with(binding.ivPortada.context)
-            .load(movie.image)
-            .into(binding.ivPortada)
+
     }
 }
