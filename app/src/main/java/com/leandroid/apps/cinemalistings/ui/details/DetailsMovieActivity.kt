@@ -6,13 +6,10 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.leandroid.apps.cinemalistings.R
-import com.leandroid.apps.cinemalistings.data.api.APIManager
 import com.leandroid.apps.cinemalistings.data.repository.DetailsRepository
-import com.leandroid.apps.cinemalistings.data.repository.MovieRepository
 import com.leandroid.apps.cinemalistings.databinding.ActivityDetailsMovieBinding
 import com.leandroid.apps.cinemalistings.model.MovieDataBase
 import com.leandroid.apps.cinemalistings.ui.utils.ComponentUtils.Companion.showToast
-import com.squareup.picasso.Picasso
 
 class DetailsMovieActivity : AppCompatActivity() {
 
@@ -59,10 +56,10 @@ class DetailsMovieActivity : AppCompatActivity() {
                     Glide.with(this@DetailsMovieActivity)
                         .load(m.image)
                         .into(movieImage)
-                    tvReleaseStateDetail.text = m.releaseState
-                    tvGenres.text = String.format(getString(R.string.genres), m.genres)
-                    tvImdbRating.text = String.format(getString(R.string.rating_imdb), m.imDbRating)
-                    tvPlot.text = String.format(getString(R.string.plot), m.plot)
+                    tvReleaseStateDetail.text = m.releaseState.toString()
+                    tvGenres.text = m.genres
+                    tvImdbRating.text = m.imDbRating
+                    tvPlot.text = m.plot
                 }
             }
         }

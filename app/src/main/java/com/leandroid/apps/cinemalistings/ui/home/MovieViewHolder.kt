@@ -6,8 +6,6 @@ import com.bumptech.glide.Glide
 import com.leandroid.apps.cinemalistings.databinding.ItemMovieBinding
 import com.leandroid.apps.cinemalistings.model.Movie
 import com.leandroid.apps.cinemalistings.ui.MovieListener
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.withContext
 
 class MovieViewHolder(view: View, private val listener: MovieListener) :
     RecyclerView.ViewHolder(view) {
@@ -17,12 +15,16 @@ class MovieViewHolder(view: View, private val listener: MovieListener) :
         binding.root.setOnClickListener {
             listener.onClick(movie.id)
         }
+        with(binding){
+            tvTitle.text = movie.title
+            tvReleaseState.text = movie.releaseState.toString()
+            tvRating.text = movie.imDbRating
+            tvGenres.text = movie.genres
+            Glide.with(binding.ivPortada.context)
+                .load(movie.image)
+                .into(binding.ivPortada)
+        }
 
-        binding.tvTitle.text = movie.title
-        binding.tvReleaseState.text = movie.releaseState
-        binding.tvRating.text = movie.imDbRating
-        Glide.with(binding.ivPortada.context)
-            .load(movie.image)
-            .into(binding.ivPortada)
+
     }
 }

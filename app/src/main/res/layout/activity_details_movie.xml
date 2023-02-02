@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/tv_releaseStateDetail_title"
-            style="@style/TextAppearance.AppCompat.Body1"
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -56,6 +56,7 @@
             android:id="@+id/tv_releaseStateDetail"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@id/tv_releaseStateDetail_title"
@@ -63,32 +64,63 @@
             tools:text="20 de junio 1988" />
 
         <TextView
-            android:id="@+id/tv_genres"
-            style="@style/TextAppearance.AppCompat.Body1"
+            android:id="@+id/tv_genres_title"
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_releaseStateDetail"
+            app:layout_constraintTop_toBottomOf="@id/tv_releaseStateDetail_title"
             android:text="@string/genres" />
+        <TextView
+            android:id="@+id/tv_genres"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toEndOf="@id/tv_genres_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_releaseStateDetail"
+            tools:text="Accion" />
 
         <TextView
-            android:id="@+id/tv_imdbRating"
-            style="@style/TextAppearance.AppCompat.Body1"
+            android:id="@+id/tv_imdbRating_title"
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_genres"
             android:text="@string/rating_imdb" />
-
         <TextView
-            android:id="@+id/tv_plot"
+            android:id="@+id/tv_imdbRating"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/tv_imdbRating_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_genres"
+            android:text="@string/rating_imdb" />
+
+        <TextView
+            android:id="@+id/tv_plot_title"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_imdbRating"
+            android:text="@string/plot" />
+
+        <TextView
+            android:id="@+id/tv_plot"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/tv_plot_title"
             app:layout_constraintTop_toBottomOf="@id/tv_imdbRating"
             android:text="@string/plot" />
     </androidx.constraintlayout.widget.ConstraintLayout>
