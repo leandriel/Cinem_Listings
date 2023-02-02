@@ -6,8 +6,6 @@ import com.bumptech.glide.Glide
 import com.leandroid.apps.cinemalistings.databinding.ItemMovieBinding
 import com.leandroid.apps.cinemalistings.model.Movie
 import com.leandroid.apps.cinemalistings.ui.MovieListener
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.withContext
 
 class MovieViewHolder(view: View, private val listener: MovieListener) :
     RecyclerView.ViewHolder(view) {

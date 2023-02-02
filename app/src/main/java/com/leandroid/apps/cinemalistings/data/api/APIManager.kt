@@ -10,10 +10,6 @@ class APIManager {
         return getRetrofitInstance().getMovies()
     }
 
-//    suspend fun getMovieDetails(id: String):Response<Movie>  {
-//        return getRetrofitInstance().getMovieDetails(id)
-//    }
-
     private fun getRetrofitInstance(): APIService {
         return RetrofitService.getRetrofit().create(APIService::class.java)
     }
