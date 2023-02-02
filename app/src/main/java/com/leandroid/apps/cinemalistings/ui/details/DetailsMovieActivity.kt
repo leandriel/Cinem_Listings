@@ -56,7 +56,7 @@ class DetailsMovieActivity : AppCompatActivity() {
                     Glide.with(this@DetailsMovieActivity)
                         .load(m.image)
                         .into(movieImage)
-                    tvReleaseStateDetail.text = m.releaseState
+                    tvReleaseStateDetail.text = m.releaseState.toString()
                     tvGenres.text = m.genres
                     tvImdbRating.text = m.imDbRating
                     tvPlot.text = m.plot

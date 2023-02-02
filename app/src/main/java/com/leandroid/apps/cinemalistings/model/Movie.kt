@@ -2,6 +2,7 @@ package com.leandroid.apps.cinemalistings.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "movies")
 data class Movie(

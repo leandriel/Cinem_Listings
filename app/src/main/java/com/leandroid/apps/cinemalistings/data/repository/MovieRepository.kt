@@ -2,6 +2,7 @@ package com.leandroid.apps.cinemalistings.data.repository
 
 import com.leandroid.apps.cinemalistings.data.api.APIManager
 import com.leandroid.apps.cinemalistings.data.dto.MovieDTO
+import com.leandroid.apps.cinemalistings.model.Movie
 import com.leandroid.apps.cinemalistings.model.MovieDao
 import com.leandroid.apps.cinemalistings.model.MovieDataBase
 import okhttp3.Interceptor.Companion.invoke
@@ -12,12 +13,15 @@ class MovieRepository (
     private val apiManager: APIManager,
     private val movieDao: MovieDao
     ) {
-    suspend fun getMovies(): Response<MovieDTO> {
+    suspend fun getMovies(): List<Movie> {
         val result = apiManager.getMovies()
 
         if(result.isSuccessful){
-                movieDao.insertMovies(result.body()!!.items)
+            result.body()?.let {
+                movieDao.insertMovies(it.items)
+            }
+
         }
-        return apiManager.getMovies()
+        return movieDao.getAllMovies()
     }
 }
