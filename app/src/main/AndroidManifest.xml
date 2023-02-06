@@ -11,6 +11,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".CinemaListingsApp"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +24,7 @@
             android:name=".ui.details.DetailsMovieActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>

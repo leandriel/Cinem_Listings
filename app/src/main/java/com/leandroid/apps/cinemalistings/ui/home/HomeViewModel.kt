@@ -4,13 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leandroid.apps.cinemalistings.data.repository.MovieRepository
+import com.leandroid.apps.cinemalistings.domain.GetMoviesUseCase
 import com.leandroid.apps.cinemalistings.model.Movie
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
-    private val repository: MovieRepository
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val getMoviesUseCase: GetMoviesUseCase
 ) : ViewModel() {
+
+    //TODO: sealed class
+
     val movies: LiveData<MutableList<Movie>>
         get() = _movies
     private val _movies = MutableLiveData<MutableList<Movie>>()
@@ -24,12 +30,13 @@ class HomeViewModel(
     fun getMovies() {
         viewModelScope.launch {
             _isLoading.value = true
-            repository.getMovies().let { movies ->
+            getMoviesUseCase()?.let { movies ->
                 _isError.value = false
                 _movies.value = movies.toMutableList()
+            } ?: run {
+                _isError.value = true
             }
             _isLoading.value = false
         }
     }
-
 }

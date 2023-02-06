@@ -1,16 +1,14 @@
 package com.leandroid.apps.cinemalistings.data.api
 
 import com.leandroid.apps.cinemalistings.data.dto.MovieDTO
-import com.leandroid.apps.cinemalistings.model.Movie
 import retrofit2.Response
+import javax.inject.Inject
 
 
-class APIManager {
+class APIManager @Inject constructor (private val apiService: APIService) {
+
     suspend fun getMovies(): Response<MovieDTO> {
-        return getRetrofitInstance().getMovies()
+        return apiService.getMovies()
     }
 
-    private fun getRetrofitInstance(): APIService {
-        return RetrofitService.getRetrofit().create(APIService::class.java)
-    }
 }

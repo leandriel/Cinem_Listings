@@ -3,18 +3,17 @@ package com.leandroid.apps.cinemalistings.ui.details
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.leandroid.apps.cinemalistings.R
-import com.leandroid.apps.cinemalistings.data.repository.DetailsRepository
 import com.leandroid.apps.cinemalistings.databinding.ActivityDetailsMovieBinding
-import com.leandroid.apps.cinemalistings.model.MovieDataBase
 import com.leandroid.apps.cinemalistings.ui.utils.ComponentUtils.Companion.showToast
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailsMovieActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: DetailsViewModel
-    private lateinit var repository: DetailsRepository
+    private val detailsViewModel: DetailsViewModel by viewModels()
     private lateinit var binding: ActivityDetailsMovieBinding
     private var id: String = ""
 
@@ -28,15 +27,11 @@ class DetailsMovieActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        repository = DetailsRepository(MovieDataBase.getDataBase(this).movieDao())
-        DetailsViewModelFactory(repository).run {
-            viewModel =
-                ViewModelProvider(this@DetailsMovieActivity, this)[DetailsViewModel::class.java]
-        }
+        detailsViewModel.getDetailsMovie(id)
     }
 
     private fun subscribeLiveData() {
-        with(viewModel) {
+        with(detailsViewModel) {
             getDetailsMovie(id)
             isLoading.observe(this@DetailsMovieActivity) {
                 handlerProgressBar(it)

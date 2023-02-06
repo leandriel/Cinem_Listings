@@ -4,11 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leandroid.apps.cinemalistings.data.repository.DetailsRepository
+import com.leandroid.apps.cinemalistings.domain.GetDetailsUseCase
 import com.leandroid.apps.cinemalistings.model.Movie
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailsViewModel(private val detailsRepository: DetailsRepository) : ViewModel() {
+@HiltViewModel
+class DetailsViewModel @Inject constructor(
+    private val getDetailsUseCase: GetDetailsUseCase
+) : ViewModel() {
 
     val movie: LiveData<Movie>
         get() = _movie
@@ -23,12 +28,11 @@ class DetailsViewModel(private val detailsRepository: DetailsRepository) : ViewM
     fun getDetailsMovie(id: String) {
         viewModelScope.launch {
             _isLoading.value = true
-            detailsRepository.getMovieDetails(id).let { movie ->
-                if (movie != null ) {
+            getDetailsUseCase(id).let { movie ->
+                if (movie != null) {
                     _isError.value = false
                     _movie.value = movie
-                    }
-                 else {
+                } else {
                     _isError.value = true
                 }
                 _isLoading.value = false

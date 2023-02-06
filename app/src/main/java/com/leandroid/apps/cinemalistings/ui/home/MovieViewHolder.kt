@@ -17,14 +17,12 @@ class MovieViewHolder(view: View, private val listener: MovieListener) :
         }
         with(binding){
             tvTitle.text = movie.title
-            tvReleaseState.text = movie.releaseState.toString()
+            tvReleaseState.text = movie.releaseState
             tvRating.text = movie.imDbRating
             tvGenres.text = movie.genres
             Glide.with(binding.ivPortada.context)
                 .load(movie.image)
                 .into(binding.ivPortada)
         }
-
-
     }
 }
